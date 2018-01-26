@@ -16,6 +16,8 @@ capt_data = capt_data[!duplicated(capt_data[3:5]),]
 length(levels(capt_data$ID)) # 3298 different IDs overall
 
 # HOW MANY INDIVIDUALS PER CAVE ? HOW MANY WITH A CERTAIN NUMBER OF CAPTURES ?
+# n.fish = 3401. It is more than the overall number of IDs because some fish moved between caves and 
+# HOW MANY HAVE BEEN CAPTURED 1, 2, 3, ... IN TOTAL? PER CAVE?
 
 n.caves=length(levels(capt_data$cave))
 detail_per_cave = as.data.frame(matrix(data=NA,nrow=n.caves, ncol=2))
@@ -59,9 +61,9 @@ for (i in 1:n.caves){
   detail_per_cave$percent.9capture[i] = 100 * detail_per_cave$n.9capture[i] / detail_per_cave$n.fish[i]
 }
 
-# n = 3401. It is more than the overall number of IDs because some fish moved between caves and 
-# HOW MANY HAVE BEEN CAPTURED 1, 2, 3, ... IN TOTAL? PER CAVE?
+detail_per_cave[c(4,6,8,10,12,14,16,18,20)] = round(detail_per_cave[c(4,6,8,10,12,14,16,18,20)], digits = 2)
 
-
+write.csv(detail_per_cave, 'detail_per_cave.csv')
+write.table(detail_per_cave, 'detail_per_cave.txt', sep='\t')
 
 # THINK OF A WAY TO COUNT FISH THAT HAVE POTENTIALLY LOST THEIR TAGS..
